@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-$Id: display_model.py,v 1.3 2014/07/15 18:30:29 bob Exp $
+$Id: display_model.py,v 1.7 2016/03/03 16:29:06 bob Exp $
 
 Author: Chris Hager <chris@linuxuser.at>
 License: MIT
@@ -48,7 +48,10 @@ model_data = {
     'd': ('B', '2.0', 512, 'Egoman', ''),
     'e': ('B', '2.0', 512, 'Sony', ''),
     'f': ('B', '2.0', 512, 'Qisda', ''),
-    '10': ('B+', '2.0', 512, 'Unknown', '')
+    '10': ('B+', '2.0', 512, 'Unknown', ''),
+    'a01041': ('2B', '2.0', 512, 'Farnell and others', ''),
+    '900092': ('Pi Zero', '2.0', 1000, 'Element14', ''),
+    'a02082': ('3B', '2.0', 1000, 'Element14', ''),
 }
 
 
@@ -65,7 +68,6 @@ class ModelInfo(object):
     maker = ''
     info = ''
 
-
     def __init__(self, rev_hex=None):
         if not rev_hex:
             with open("/proc/cpuinfo") as f:
@@ -74,9 +76,11 @@ class ModelInfo(object):
                     .group(1)
 
         self.revision_hex = rev_hex[-4:] if rev_hex[:4] == "1000" else rev_hex
-        self.model, self.revision, self.ram_mb, self.maker, self.info = \
-                model_data[rev_hex.lstrip("0")]
-
+        try:
+                self.model, self.revision, self.ram_mb, self.maker, self.info = \
+                        model_data[rev_hex.lstrip("0")]
+        except:
+                print "Unknown model", rev_hex.lstrip("0")
 
     def __repr__(self):
         s = "%s: Model %s, Revision %s, RAM: %s MB, Maker: %s%s" % ( \

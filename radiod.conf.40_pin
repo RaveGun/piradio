@@ -1,12 +1,13 @@
-# Raspberry Pi Internet Radio Configuration File (26 pin version)
-# $Id: radiod.conf,v 1.32 2016/08/11 11:30:35 bob Exp $
+# Raspberry Pi Internet Radio Configuration File (40 Pin version)
+# $Id: radiod.conf.40_pin,v 1.1 2016/08/11 11:29:52 bob Exp $
 
 # Configuration file for version 5.4 onwards
+# 40 pin version to support IQ Audio and other sound cards
 
 [RADIOD]
 
 # loglevel is CRITICAL,ERROR,WARNING,INFO,DEBUG or NONE
-loglevel=INFO
+loglevel=DEBUG
 
 # Startup option either RADIO or MEDIA (USB stick)
 startup=RADIO
@@ -71,23 +72,21 @@ verbose=no
 # set it to no
 use_playlist_extensions=no
 
-# Down switch GPIO setting, if using a HiFiberry DAC+ set to 10
-down_switch=18
-
-# Other switch settings
-menu_switch=25
+# Switch settings for 40 pin version (support for IQAudio)
+menu_switch=17
 mute_switch=4
-up_switch=17
-left_switch=14
-right_switch=15
+up_switch=15
+down_switch=14
+left_switch=23
+right_switch=24
 
-# LCD GPIO connections
+# LCD GPIO connections for 40 pin version of the radio 
 lcd_select=7
 lcd_enable=8
-lcd_data4=27
-lcd_data5=22
-lcd_data6=23
-lcd_data7=24
+lcd_data4=5
+lcd_data5=6
+lcd_data6=12
+lcd_data7=13
 
 # Some rotary switches do not work well with the standard rotary class
 # Rotary encoder driver. Set to "alternative" to use the alternative rotary encoder class

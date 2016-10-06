@@ -9,81 +9,76 @@ See http://www.musicpd.org/
 Use "apt-get install mpd mpc python-mpd" to install the library
 Modified to use python-mpd library. See https://pypi.python.org/pypi/python-mpd/
 
-Upgrade notes version 3.3 onwards
----------------------------------
-From version 3.3 onwards it is necessary to install python-mpd library
-To upgrade from earlier versions as root or sudo carry out the following command:
-apt-get install python-mpd
+Version 5.4 release notes
+-------------------------
+Version 5.4 has mainly configuration changes
+1) All switch GPIO settings are configurable in /etc/radiod.conf
+2) All LCD GPIO outputs are configurable in /etc/radiod.conf
+3) Log OS information in radio.log file
+4) New select_audio.sh program to configure audio output
+5) Correct AdaFruit backpack initialisation error
 
-Version 3.3 changes
--------------------
-Most mpc calls via the operating system replaced with calls directly to the  python-mpd library
-Streaming on off now remembered between restart of the program
-Visual streaming indicator '*' added to LCD display 
+Version 5.3 release notes
+-------------------------
+Version 5.3 has some minor improvements in particular to speech
+1) Speech message can be supressed by adding an exclamation mark ! to the beginning of the message
+2) Correct incorrect copy of voice file to /var/lib/radiod/language
+3) Random state now stored in /var/lib/radiod/random to maintain setting by restarts
+4) Improved volume level for speech (was too loud before)
+5) Support for speech when using HiFiBerry DAC+ (Not working in earlier versions)
+6) Vintage radio support using retro_radio.py program (Rotary encoders but no LCD display)
+7) Test rotary switch (test_rotary_class.py) modifined to select down switch (If HiFiBerry DAC+)
+8) Correct display_config error non-existant file  /var/lib/radiod/mpdport
+9) New i2c_address parameter added to radiod.conf to make i2c address configurable
+10) Leading < character stripped from RSS feed
 
-Version 3.4 changes
--------------------
-Problems with loading music library from a NAS over the network cured
-Auto restart MPD if client connection fails
+Version 5.2 release notes
+-------------------------
+Version 5.2 has some minor improvements
+1) Degrees C and degrees F temporary handling in translate class (Not the final solution)
+2) Instructions added to the manual to prevent radio hanging on a reboot
+3) Clear Adafruit display on restart
+4) rradiobp.py correction to search backwards not correct (It was searching forwards)
+5) create_m3u.py incorrect file /var/lib/radiod/station.urls corrected to /usr/share/radio/station.urls
+6) Rename PCF8475(incorrect name) to PCF8574 in all affected files 
 
-Version 3.5 changes
--------------------
-Problem with displaying "Check playlist" cured.
-The format of the stationlist file has changed. It now allows a group of stations to be listed in one playlist.
-The create_playlist program includes 3 new options: --help, --delete_old, --no_delete
-The (stream) pparameter in the stationlist file is no longer applicable
+Version 5.1 release notes
+-------------------------
+Version 5.1 addresses issues found in 5.0 (Major release) and general improvements
+1) Resolved the radio crashing if a playlist created without a .m3u extension
+2) Resolved the radio crashing if invalid RSS file /var/lib/radiod/rss
+3) Amended test_i3c_lcd test program to support PCF8475 backpack
+4) Amended test_ada_lcd.py test program to gracefully exit with Ctrl-C key
+5) Alternative rotary class configurable. New rotary_class=standard/alternative added to radiod.conf
+6) Missing nodaemon option added to rradiobp.py
+7) Reboot problem solved (systemd bug solved by installing svinit-core)
+8) Incorrect status display cured as above
 
-Version 3.6 changes
--------------------
-Source tar file replaced with an installable Debian package radiod_3.6_armhf.deb installed using dpkg.  
+Version 5.0 release notes
+-------------------------
+Version 5.0 is a major release of the radio software specifically for Raspian Jessie
+Backwards compatibility with Raspian Wheezy is not guaranteed.
+Version 4.7 is still available for Raspbian Wheezy but is no longer maintained.
 
-Version 3.7 changes
--------------------
-All versions fully integrated with MPD clients such as mpc, mPod and MPDroid
-Improved volume display on rotary switch versions
+The following changes have been implemented
+1) New language class to handle languages other than English (New language class)
+2) Problem with radio station jumping on un-mute solved
+3) Espeak implemented for people with impaired vision or blindness (New espeak class)
+4) Full IR Remote Control functionality  
+5) New create_m3u.py program to M3U playlists (pls files are no longer used or supported)
+6) MPD version 0.19 now suported (was version 0.16)
+7) Version 1 Rasberry Pi boards are no longer supported
+8) Due to the very limited and poor functionality Podcasts are no longer supported
+9) All programs are now installed in /usr/share/radio instead of /home/pi/radio
+10) Volume range now configurable 10, 20, 25 50 and 100
+11) Support for HifFerry DAC and DAC+
+12) Separate option for setting alarm hours and minutes
 
-Version 3.8 changes
--------------------
-Contributors section added
-Display board revision script added - display_model.py
-Revision 1 boards now supported with the Adafruit plate (i2c_class.py)
-
-Version 3.9 changes
--------------------
-Support for podcast playlists addeded. New create_podcasts.py program
-Crontab entry for podcast playlist creation (/etc/cron.hourly/podcast)
-Improved create_playlists.py program to handle special characters 
-
-Version 3.10 changes
---------------------
-Improved search facility. Holding in buttons during a search instead of repeatedly pressing them.
-
-Version 3.11 changes
---------------------
-Name and title of station displayed seperately on line 2 & 3 (4 line displays only) 
-Improved character translation routines (translate_class.py)
-
-Version 3.12 changes
---------------------
-Greek to latin character translation added, improved french translation
-RSS feed improvements
-
-Version 3.13 changes
---------------------
-2 November 2014 - Added support for Adafruit LCD Backpack interface board.
-Correct Alarm problem in Adafruit Plate code
-
-Version 3.14 changes
---------------------
-31 Dec 2014 3.14  - Variable date format added (USA date format for example) 
-
-Version 4.0 changes
---------------------
-12 Feb 2015 4.0 Support for PiFace CAD. New configuration file 
-
-Version 4.1 changes
---------------------
-27 Feb 2015 4.1 Hungarian characters added to translate class. Correct date format on Ada radio
+Installation
+------------
+You are strongly advised to install the latest Debian Jessie on a new SD card and
+then to install MPD and the radio software.
+Attempting a apt-get dist-upgrade does not do a full Jessie upgrade and may give uncertain results 
 
 Manual
 ------
@@ -94,9 +89,10 @@ Github
 Source available from Github
 See https://github.com/bobrathbone/piradio 
 
-License
--------
-GNU V3, See https://www.gnu.org/copyleft/gpl.html
+Licenses
+--------
+GNU General Public License. See http://www.gnu.org/licenses/gpl.html
+GNU AFFERO GENERAL PUBLIC LICENSE. See http://www.gnu.org/licenses/agpl.html
 
 Disclaimer 
 ----------

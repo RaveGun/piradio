@@ -1,6 +1,6 @@
 # Station list - Source list for radio stations streams
 # File: /var/lib/radiod/stationlist (Don't use station.urls - distribution only)
-# $Id: station.urls,v 1.15 2015/03/05 19:19:23 bob Exp $
+# $Id: station.urls,v 1.20 2016/05/17 07:43:07 bob Exp $
 # To use this file add the URL that points to either an asx or pls file
 # The format is:
 #   (<playlist>)
@@ -10,8 +10,6 @@
 # For example (BBC Stations) creates a playlist called BBC_Stations.pls
 # Note: Play lists are terminated with a blank line
 # 
-# The (stream) parameter is optional and indicates this is a direct stream link
-#
 # In general it is always better to define a title
 #
 # Some sites that you can use are:
@@ -20,7 +18,7 @@
 #   http://www.radio-locator.com
 #   http://bbcstreams.com/ 
 #
-# Then run create_pl_files.py in the /home/pi/radio directory to create PLS files
+# Then run create_m3u.py in the /usr/share/radio directory to create M3U files
  
 # United Kingdom
 # The following links are iPhone streams (m3u files)
@@ -44,6 +42,7 @@
 [Radio 2 Nederland] http://icecast.omroep.nl/radio2-bb-aac.m3u
 [Radio 6 Blues Nederland] http://icecast.omroep.nl/radio6-blues-bb-aac.m3u
 [Stream Power MP3] http://mp3.streampower.be/radio1-high.mp3
+[Candlelight] http://candlelight.live-streams.nl/candlelight.m3u
 
 # Germany
 (German Stations)
@@ -57,6 +56,12 @@
 [RAI Radio Duo] http://www.listenlive.eu/rai2.m3u
 [Prima Radio Napoli] http://kemoniastreaming2.net:8010/listen.pls
 
+# France
+(France)
+[RTL] http://streaming.radio.rtl.fr/rtl-1-44-128.m3u
+[RTL2] http://streaming.radio.rtl.fr/rtl2-1-44-128.m3u
+[Music Box] http://www.musicboxtv.com:8000/live.m3u
+
 # Country music
 (Country music)
 [Digital Radio 108] http://digitalradionetworks.com:8002/listen.pls
@@ -69,7 +74,7 @@
 [Radio Sky Music] http://streaming.radionomy.com/RadioSky-Music
 
 # Australia
-(Australia)
-[Adelaide Radio AA] http://streaming.novaentertainment.com.au/fiveaa
+#(Australia)
+#[Adelaide Radio AA] http://streaming.novaentertainment.com.au/fiveaa
 
 
